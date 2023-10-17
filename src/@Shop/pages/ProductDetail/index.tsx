@@ -8,13 +8,12 @@ import { IProduct } from '@/src/@Core/components/newest/productType'
 import { newestProducts } from '@/src/@Core/components/newest/fakedata'
 import { getData } from './SSRData'
 import CoreSpinner from '@/src/@Core/components/spinner/CoreSpinner'
-interface Props {
-	product: IProduct
-	products: IProduct[]
-}
-const ProductDetail: React.FC<Props> = ({ searchParams }: any) => {
-	const id = searchParams?.id as string
+import { useParams } from 'next/navigation'
 
+const ProductDetail: React.FC = ({ searchParams }: any) => {
+	const params = useParams()
+	const id = params.slug as string
+	
 	const { product } = getData(id)
 	console.log('🚀 ~ file: index.tsx:17 ~ product:', product)
 

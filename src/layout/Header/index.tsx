@@ -1,11 +1,13 @@
+'use client'
 import React from "react";
 import dynamic from "next/dynamic";
 // import Menu from "./menu";
 import Logo from "./fragments/CSR/Logo";
 import SearchBar from "./fragments/CSR/SearchBar";
+import CartIcon from "./fragments/CSR/Cart";
+import { useCoreContext } from "@/src/@Core/hooks/useAppContext";
 // import Settings from "./Settings";
 // import SearchBar from "./SearchBar";
-// import CartIcon from "../cart/CartIcon";
 // import Language from "./language/Language";
 
 // const UserBox = dynamic(() => import("./user"), {
@@ -33,7 +35,7 @@ const Header = () => {
             <SearchBar />
           </div>
           <div className="ltr:ml-2 rtl:mr-2 smml-4 sm:mr-4 flex items-center justify-between ">
-            {/* <CartIcon /> */}
+            <CartIcon />
           </div>
         </div>
       </div>
