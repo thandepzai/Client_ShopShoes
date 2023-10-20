@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { HiOutlinePlusSm, HiMinusSm } from 'react-icons/hi'
 import { BsCartPlus } from 'react-icons/bs'
-import { useCoreContext } from '@/src/@Core/hooks/useAppContext'
+import { useCartContext } from '@/src/contexts/CartContext'
 interface Props {
 	product: any
 }
@@ -12,19 +12,17 @@ const CallToAction: React.FC<Props> = ({ product }) => {
 	const [counter, setCounter] = useState(1)
 	const [sizeChoose, setSizeChoose] = useState(sizeProduct[0])
 
-	const { addCart } = useCoreContext()
+	const { addCart } = useCartContext()
 	useEffect(() => {
-		return () => {
-			setCounter(1)
-		}
+		setCounter(1)
 	}, [product])
 
 	function addToCartHandler() {
 		addCart({
-      id: sizeChoose.id,
+			id: sizeChoose.id,
 			product: product,
 			quantity: counter,
-			quantityProduct: sizeChoose.quantity
+			sizeProduct: sizeChoose
 		})
 	}
 
@@ -52,13 +50,20 @@ const CallToAction: React.FC<Props> = ({ product }) => {
 	return (
 		<div className="flex flex-col items-center flex-grow sticky top-10 md:top-36 max-w-[350px] mt-8 rtl:mr-auto ltr:ml-auto xl:rtl:ml-2 px-6 py-4 sm:p-4 xl:p-6 border-2 shadow-lg">
 			<div className="flex flex-col w-full ">
-				<p className="text-lg">Product price: {sizeChoose.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND', currencyDisplay: 'code' })}</p>
+				<p className="text-lg">
+					Product price:{' '}
+					{sizeChoose.price.toLocaleString('vi-VN', {
+						style: 'currency',
+						currency: 'VND',
+						currencyDisplay: 'code'
+					})}
+				</p>
 				<div>
 					<h3 className="text-lg font-medium text-gray-500 mb-2">Size</h3>
 					<ul className="grid w-full gap-2 grid-cols-4">
 						{sizeProduct.map((item: any, key: number) => {
 							return (
-								<li>
+								<li key={key}>
 									<input
 										type="radio"
 										id={String(key)}

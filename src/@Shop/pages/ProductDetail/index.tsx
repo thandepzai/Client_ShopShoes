@@ -10,11 +10,12 @@ import { getData } from './SSRData'
 import CoreSpinner from '@/src/@Core/components/spinner/CoreSpinner'
 import { useParams } from 'next/navigation'
 
-const ProductDetail: React.FC = ({ searchParams }: any) => {
+const ProductDetail: React.FC = () => {
 	const params = useParams()
 	const id = params.slug as string
 	
 	const { product } = getData(id)
+
 	console.log('🚀 ~ file: index.tsx:17 ~ product:', product)
 
 	const similarProductsList = newestProducts.slice(0, 10)
