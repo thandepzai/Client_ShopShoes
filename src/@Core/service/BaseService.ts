@@ -114,10 +114,10 @@ export class BaseService {
 		}
 	}
 
-	search = async ({ params, header }: searchProps) => {
+	search = async ({ params }: searchProps) => {
 		const convertParams = queryString.stringify(params ?? { page: 1, pageSize: 10 })
 		const endpoint = `${this.BASE_URL}/${this.BASE_ENDPOINT}/search?${convertParams}`
-		return this.request.get(endpoint, header)
+		return this.request.get(endpoint)
 	}
 
 	find = async (id: string, config?: any) => {

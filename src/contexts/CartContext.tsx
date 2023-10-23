@@ -84,7 +84,11 @@ const CardContextProvider = (props: any) => {
 		}
 	}
 
-	const data = { cart, quantityProduct, addCart, changeCart, deleteCart }
+	function removeCart() {
+		setCart([])
+	}
+
+	const data = { cart, quantityProduct, addCart, changeCart, deleteCart, removeCart }
 	return <CartContext.Provider value={{ ...data }}>{props.children}</CartContext.Provider>
 }
 

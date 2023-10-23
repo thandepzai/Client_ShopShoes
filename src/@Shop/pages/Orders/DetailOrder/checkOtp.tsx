@@ -4,62 +4,32 @@ import { BsFillShieldFill, BsTelephoneFill } from 'react-icons/bs'
 import OTPInput from 'react-otp-input'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import { Auth, getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import { Toaster } from 'react-hot-toast'
 import { toast } from 'react-toastify'
-import { auth } from './firebase.config'
+import { auth } from '../../PaymentOrder/firebase.config'
 import { LoadingIcon, SuccessIcon } from '@/src/@Core/components/paymentIcon'
-import { createData } from './SSRData'
-interface Inputs {
-	name: string
-	email: string
-	phone: number
-	address: string
-	paymentMethod: string
-}
+import { RemoveCart } from './SSRData'
+
 interface Props {
-	dataSend: Inputs | undefined
+	id: string
+	phone: string
 	setChangeStatus: (value: SetStateAction<boolean>) => void
-	cart: any
 }
 declare const window: any
-const CheckOtp: React.FC<Props> = ({ dataSend, setChangeStatus, cart }) => {
+const CheckOtp: React.FC<Props> = ({ id, phone, setChangeStatus }) => {
 	const [otp, setOtp] = useState('')
-	const [ph, setPh] = useState(`+84 ${String(dataSend?.phone)}`)
+	const [ph] = useState(`+84 ${phone}`)
 	const [loading, setLoading] = useState(false)
 	const [showOTP, SetShowOtp] = useState(false)
 	const [user, setUSer] = useState(null)
 	const [checkOrder, setChekOrder] = useState(false)
-	const { createOrder } = createData()
+	const { removeOrder } = RemoveCart()
 
 	// Data for CAll APi
 	useEffect(() => {
-		if (dataSend && checkOrder) {
-			const { name, phone, email, address, paymentMethod } = dataSend
-			let sumPrice = 0,
-				sumQuantity = 0
-			const items = cart.map((item: any) => {
-				sumPrice += item.quantity * item.sizeProduct.price
-				sumQuantity += item.quantity
-				return {
-					sizeProductId: item.id,
-					quantity: item.quantity
-				}
-			})
-			const customerInfo = {
-				name,
-				phone,
-				email,
-				address
-			}
-			const paymentInfo = {
-				status: 'chua thanh toan',
-				amount: sumPrice,
-				quantity: sumQuantity,
-				method: paymentMethod,
-				note: 'Khong co'
-			}
-			createOrder({ items, customerInfo, paymentInfo })
+		if (checkOrder) {
+			removeOrder({ orderId: id, status: 'CANCELED' })
 		}
 	}, [checkOrder])
 
@@ -119,7 +89,7 @@ const CheckOtp: React.FC<Props> = ({ dataSend, setChangeStatus, cart }) => {
 						<div className="flex items-center">
 							<SuccessIcon />
 							<h2 className="text-center text-black font-medium text-2xl">
-								Xác nhận thành công đơn hàng của bạn đã được đặt
+								Xác nhận thành công đơn hàng của bạn đang được hủy
 							</h2>
 						</div>
 						<div className="flex items-center w-full justify-center">
@@ -168,7 +138,7 @@ const CheckOtp: React.FC<Props> = ({ dataSend, setChangeStatus, cart }) => {
 									Xác minh số điện thoại của bạn
 								</label>
 								<div className="bg-emerald-500 flex justify-center text-2xl -ml-1">
-									<PhoneInput country={'vn'} value={ph} onChange={setPh} />
+									<PhoneInput country={'vn'} value={ph} disabled />
 								</div>
 								<button
 									onClick={onSignup}
@@ -178,7 +148,7 @@ const CheckOtp: React.FC<Props> = ({ dataSend, setChangeStatus, cart }) => {
 									Gửi mã SMS
 								</button>
 								<button
-									onClick={() => setChangeStatus(true)}
+									onClick={() => setChekOrder(!checkOrder)}
 									className="bg-emerald-900 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded"
 								>
 									Quay lại

@@ -1,5 +1,5 @@
 'use client'
-import { useForm, SubmitHandler, UseFormHandleSubmit } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
 type Inputs = {
 	name: string
@@ -10,14 +10,17 @@ type Inputs = {
 }
 interface Params {
 	onSubmit: SubmitHandler<Inputs>
+	dataSend: Inputs | undefined
 }
 
-const ImportInfo: React.FC<Params> = ({ onSubmit }) => {
-	const {
+const ImportInfo: React.FC<Params> = ({ onSubmit, dataSend }) => {
+	let {
 		register,
 		handleSubmit,
 		formState: { errors }
-	} = useForm<Inputs>()
+	} = useForm<Inputs>({
+		defaultValues: dataSend
+	})
 
 	const renderError = (value: 'name' | 'email' | 'phone' | 'address' | 'paymentMethod') => {
 		if (errors[`${value}`]?.type === 'required') {
@@ -29,7 +32,7 @@ const ImportInfo: React.FC<Params> = ({ onSubmit }) => {
 
 	return (
 		<div>
-			<div className="w-full text-center text-3xl text-indigo-600 mb-4 font-bold">Đặt Hàng</div>
+			<div className="w-full text-center text-3xl text-emerald-600 mb-4 font-bold">Đặt Hàng</div>
 			<form onSubmit={handleSubmit(onSubmit)} className="w-full">
 				<div className="mb-6">
 					<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Họ và tên</label>

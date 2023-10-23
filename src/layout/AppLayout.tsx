@@ -15,6 +15,7 @@ export const AppLayout: React.FC<Props> = ({ children }) => {
 				<AppFooter />
 			</div>
 			<ToastContainer autoClose={2000} />
+			<div id="recaptcha-container"></div>
 		</CardContextProvider>
 	)
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import Image from 'next/image'
@@ -8,7 +8,7 @@ import { useCartContext } from '@/src/contexts/CartContext'
 const CartIcon: React.FC = () => {
 	const [isHovered, setIsHovered] = useState(false)
 	const { cart, quantityProduct } = useCartContext()
-
+	const nodeRef = React.useRef(null)
 	const handleMouseEnter = () => {
 		setIsHovered(true)
 	}
@@ -27,7 +27,7 @@ const CartIcon: React.FC = () => {
 					{quantityProduct}
 				</span>
 			</Link>
-			<Transition in={isHovered} timeout={300} mountOnEnter unmountOnExit>
+			<Transition nodeRef={nodeRef} in={isHovered} timeout={300} mountOnEnter unmountOnExit>
 				<div className="z-[100]">
 					<div className="hidden lg:flex flex-col absolute top-14 right-14 min-h-[15rem] max-h-[25rem] w-[20rem] bg-palette-card z-[110] shadow-md rounded-lg overflow-auto">
 						<div className="relative">
