@@ -8,24 +8,18 @@ const nextConfig = {
 	},
 	serverRuntimeConfig: {
 		images: {
-			domains: ['ohaomxltnhpdriahjpvz.supabase.co', 'esvelufzuzhhmsqjiior.supabase.co'],
+			domains: ['*'],
 			formats: ['image/webp']
 		}
 	},
-	reactStrictMode: true,
+	reactStrictMode: false,
 	images: {
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: 'ohaomxltnhpdriahjpvz.supabase.co',
+				hostname: '*',
 				port: '',
-				pathname: '/storage/v1/object/public/itx_storage/**'
-			},
-			{
-				protocol: 'https',
-				hostname: 'esvelufzuzhhmsqjiior.supabase.co',
-				port: '',
-				pathname: '/storage/v1/object/public/file/public/**'
+				pathname: '/storage/v1/object/public/**'
 			},
 			{
 				protocol: 'https',

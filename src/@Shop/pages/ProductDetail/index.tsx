@@ -3,28 +3,21 @@ import React from 'react'
 import ImageSection from './ImageSection'
 import DetailsSection from './DetailsSection'
 import { Benefits } from '@/src/@Core/components'
-import SimilarProducts from './SimilarProducts'
-import { IProduct } from '@/src/@Core/components/newest/productType'
-import { newestProducts } from '@/src/@Core/components/newest/fakedata'
+import SimilarProducts from '@/src/@Core/components/similarProducts/SimilarProducts'
 import { getData } from './SSRData'
-import CoreSpinner from '@/src/@Core/components/spinner/CoreSpinner'
 import { useParams } from 'next/navigation'
+import CartLoading from '@/src/@Core/components/loading/CartLoading'
 
 const ProductDetail: React.FC = () => {
 	const params = useParams()
 	const id = params.slug as string
-	
 	const { product } = getData(id)
-
-	console.log('🚀 ~ file: index.tsx:17 ~ product:', product)
-
-	const similarProductsList = newestProducts.slice(0, 10)
 
 	return (
 		<>
-			{product === undefined ? (
-				<div className="w-full flex justify-center mt-20">
-					<CoreSpinner />
+			{product === undefined || product === null ? (
+				<div className="w-full flex">
+					<CartLoading />
 				</div>
 			) : (
 				<div className="flex flex-col">
@@ -36,7 +29,7 @@ const ProductDetail: React.FC = () => {
 						<div className="border-2 my-8">
 							<Benefits />
 						</div>
-						<SimilarProducts products={similarProductsList} />
+						<SimilarProducts code={product.code} />
 					</div>
 				</div>
 			)}

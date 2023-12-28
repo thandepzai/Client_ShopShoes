@@ -1,5 +1,5 @@
 'use client'
-import { Carousel, Benefits } from '@/src/@Core/components'
+import { Carousel, Benefits, Offers } from '@/src/@Core/components'
 import Brands from '@/src/@Core/components/brands'
 import Newest from '@/src/@Core/components/newest/Newest'
 import CoreSpinner from '@/src/@Core/components/spinner/CoreSpinner'
@@ -7,19 +7,19 @@ import React from 'react'
 import { getData } from './SSRData'
 
 const Home = () => {
-	const { products } = getData()
-	console.log('🚀 ~ file: index.tsx:11 ~ Home ~ productForm:', products)
+	const { products, handleUpdatePageSize } = getData()
 
 	return (
 		<div>
 			<Carousel />
 			<Benefits />
+			<Offers />
 			{products === undefined ? (
 				<div className="w-full flex justify-center">
 					<CoreSpinner />
 				</div>
 			) : (
-				<Newest products={products}/>
+				<Newest products={products} handleUpdatePageSize={handleUpdatePageSize} />
 			)}
 			<Brands />
 		</div>

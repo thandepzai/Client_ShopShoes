@@ -142,6 +142,9 @@ module.exports = {
         farsi: "'iranyekan', 'IRANSans', 'Tahoma'",
         english: "'Poppins', 'Roboto', 'sans-serif'",
       },
+			backgroundImage: {
+				offersBG: "url('/images/carouselBox-bg/offersbg.webp')",
+			},
 		}
 	},
 	plugins: []

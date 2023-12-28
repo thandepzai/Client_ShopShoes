@@ -25,7 +25,8 @@ interface AddCartInterface {
 const CartContext = React.createContext<any>(null)
 
 export const useCartContext = () => useContext(CartContext)
-const CardContextProvider = (props: any) => {
+
+export const CardContextProvider = (props: any) => {
 	const [cart, setCart] = useStorage(STORAGE.LOCAL, 'cart', [])
 	const [quantityProduct, setQuantityProduct] = useState(0)
 
@@ -84,12 +85,17 @@ const CardContextProvider = (props: any) => {
 		}
 	}
 
+	function deleteManyCart(listCode: string[]) {
+		const newCart = cart.filter((item: any) => {
+			return !listCode.includes(item.product.code)
+		})
+		setCart(newCart)
+	}
+
 	function removeCart() {
 		setCart([])
 	}
 
-	const data = { cart, quantityProduct, addCart, changeCart, deleteCart, removeCart }
+	const data = { cart, quantityProduct, addCart, changeCart, deleteCart, removeCart, deleteManyCart }
 	return <CartContext.Provider value={{ ...data }}>{props.children}</CartContext.Provider>
 }
-
-export { CardContextProvider }

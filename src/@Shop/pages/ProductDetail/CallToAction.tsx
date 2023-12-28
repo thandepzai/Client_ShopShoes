@@ -52,11 +52,13 @@ const CallToAction: React.FC<Props> = ({ product }) => {
 			<div className="flex flex-col w-full ">
 				<p className="text-lg">
 					Product price:{' '}
-					{sizeChoose.price.toLocaleString('vi-VN', {
-						style: 'currency',
-						currency: 'VND',
-						currencyDisplay: 'code'
-					})}
+					<span className="font-semibold">
+						{sizeChoose.price.toLocaleString('vi-VN', {
+							style: 'currency',
+							currency: 'VND',
+							currencyDisplay: 'code'
+						})}
+					</span>
 				</p>
 				<div>
 					<h3 className="text-lg font-medium text-gray-500 mb-2">Size</h3>

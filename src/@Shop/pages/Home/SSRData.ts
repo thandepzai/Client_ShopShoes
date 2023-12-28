@@ -3,6 +3,10 @@ import { productService } from '../../services/productServices'
 import { useRequest } from 'ahooks'
 
 export const getData = () => {
+	const [pageSize, setPageSize] = useState(24)
+	const handleUpdatePageSize = () => {
+		setPageSize(pageSize + 24)
+	}
 	const {
 		data: data,
 		loading: loadingGetProduct,
@@ -12,8 +16,8 @@ export const getData = () => {
 	})
 
 	useEffect(() => {
-		getProduct({ params: { page: 1, pageSize: 1000 } })
-	}, [])
+		getProduct({ params: { page: 1, pageSize } })
+	}, [pageSize])
 
-	return { products: data?.data, loadingGetProduct }
+	return { products: data?.data, loadingGetProduct, handleUpdatePageSize }
 }

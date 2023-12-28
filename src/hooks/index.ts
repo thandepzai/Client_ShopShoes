@@ -1,4 +1,4 @@
-import { useLoading, useUser, useTheme } from './useAppContext'
+import { useLoading, useTheme } from './useAppContext'
 import { useStorage } from './useStorage'
 
-export { useLoading, useUser, useTheme, useStorage }
+export { useLoading, useTheme, useStorage }

@@ -3,6 +3,7 @@ import Header from './Header'
 import AppFooter from './AppFooter'
 import { CardContextProvider } from '../contexts/CartContext'
 import { ToastContainer } from 'react-toastify'
+
 type Props = {
 	children: ReactNode
 }
@@ -11,7 +12,7 @@ export const AppLayout: React.FC<Props> = ({ children }) => {
 		<CardContextProvider>
 			<div className="flex flex-col min-h-[100vh]">
 				<Header />
-				<main className="flex-grow md:mt-20">{children}</main>
+				<main className="flex-grow mt-20">{children}</main>
 				<AppFooter />
 			</div>
 			<ToastContainer autoClose={2000} />

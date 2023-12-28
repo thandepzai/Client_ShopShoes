@@ -1,7 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
-import { footerContent } from '../@Core/mock/footer'
-// import { FacebookFrame } from "@/components/frameSite/FacebookFrame";
 
 const AppFooter: React.FC = () => {
 	return (

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { productService } from '../../services/productServices'
+import { productService, productServiceEdit } from '../../services/productServices'
 import { useRequest } from 'ahooks'
 
 export const getData = (id: string) => {
@@ -7,8 +7,13 @@ export const getData = (id: string) => {
 		manual: true
 	})
 
+	const { run: postProduct } = useRequest(productServiceEdit.save, {
+		manual: true
+	})
+
 	useEffect(() => {
 		getProduct(id)
+		postProduct({ pid: id })
 	}, [])
 	return { product: data?.data?.product }
 }

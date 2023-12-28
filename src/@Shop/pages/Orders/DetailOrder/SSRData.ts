@@ -18,7 +18,7 @@ export const getData = (code: string) => {
 export function RemoveCart() {
 	const router = useRouter()
 
-	const { run: removeOrder } = useRequest(orderCancelService.update, {
+	const { run: removeOrder } = useRequest(orderCancelService.save, {
 		manual: true,
 		onSuccess: data => {
 			console.log('🚀 ~ file: SSRData.ts:40 ~ createData ~ data:', data)

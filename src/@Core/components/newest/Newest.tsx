@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Card from '../productCard/Card'
 
 const Newest = (params: any) => {
-	const { products } = params
+	const { products, handleUpdatePageSize } = params
 	console.log('🚀 ~ file: Newest.tsx:6 ~ Newest ~ products:', products)
 	return (
 		<div className="mx-auto my-4 md:my-8 flex flex-col xl:max-w-[2130px]">
@@ -13,21 +13,15 @@ const Newest = (params: any) => {
 				{products.dataTable.map((product: any) => {
 					return <Card key={product.name} product={product} />
 				})}
-				{products.dataTable.map((product: any) => {
-					return <Card key={product.name} product={product} />
-				})}
-				{products.dataTable.map((product: any) => {
-					return <Card key={product.name} product={product} />
-				})}
 			</div>
 
 			<div className="text-center">
-				<Link
-					href="/newestProducts"
-					className="inline-block py-3 px-8 md:px-12 mt-4 text-sm md:text-base bg-palette-primary text-palette-side rounded-xl shadow-lg"
+				<button
+					onClick={handleUpdatePageSize}
+					className="inline-block py-3 px-8 md:px-12 mt-4 text-sm md:text-base bg-palette-primary text-palette-side rounded-xl shadow-lg bg-palette-primary/90 hover:bg-palette-primary/100"
 				>
-					See All New Products
-				</Link>
+					See More
+				</button>
 			</div>
 		</div>
 	)

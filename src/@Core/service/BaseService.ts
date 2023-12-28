@@ -1,4 +1,4 @@
-import { METHOD } from '@/src/const/app-const'
+import { BACKEND_SEVER, METHOD } from '@/src/const/app-const'
 import queryString from 'query-string'
 export interface searchProps {
 	params?: any
@@ -12,7 +12,7 @@ interface findProps {
 }
 
 export class BaseService {
-	BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api/v1' : 'https://itxgear.com'
+	BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : BACKEND_SEVER
 	BASE_ENDPOINT: string | undefined = ''
 	constructor(endpoint?: string) {
 		this.BASE_ENDPOINT = endpoint
@@ -141,5 +141,10 @@ export class BaseService {
 	update = async (data: any, config?: any) => {
 		const endpoint = `${this.BASE_URL}/${this.BASE_ENDPOINT}`
 		return this.request.patch(endpoint, data, config)
+	}
+
+	suggestProduct = async (data: any) => {
+		const endpoint = `${this.BASE_ENDPOINT}`
+		return this.request.post(endpoint, data, { 'Content-Type': 'application/json' })
 	}
 }

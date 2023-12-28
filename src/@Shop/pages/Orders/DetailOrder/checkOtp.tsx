@@ -7,7 +7,7 @@ import 'react-phone-input-2/lib/style.css'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import { Toaster } from 'react-hot-toast'
 import { toast } from 'react-toastify'
-import { auth } from '../../PaymentOrder/firebase.config'
+import { auth } from '../../../../../config/firebase.config'
 import { LoadingIcon, SuccessIcon } from '@/src/@Core/components/paymentIcon'
 import { RemoveCart } from './SSRData'
 
@@ -34,15 +34,13 @@ const CheckOtp: React.FC<Props> = ({ id, phone, setChangeStatus }) => {
 	}, [checkOrder])
 
 	function onCaptchVerify() {
-		if (!window.recaptchaVerifier) {
-			window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-				size: 'invisible',
-				callback: (response: any) => {
-					onSignup()
-				},
-				'expired-callback': () => {}
-			})
-		}
+		window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+			size: 'invisible',
+			callback: (response: any) => {
+				onSignup()
+			},
+			'expired-callback': () => {}
+		})
 	}
 
 	const onSignup = () => {
@@ -148,7 +146,7 @@ const CheckOtp: React.FC<Props> = ({ id, phone, setChangeStatus }) => {
 									Gửi mã SMS
 								</button>
 								<button
-									onClick={() => setChekOrder(!checkOrder)}
+									onClick={() => setChangeStatus(false)}
 									className="bg-emerald-900 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded"
 								>
 									Quay lại
